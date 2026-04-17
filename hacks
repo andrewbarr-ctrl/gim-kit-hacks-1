@@ -21915,3 +21915,6 @@ if (!window._andrewWarningShown) {
     document.body.appendChild(overlay);
   }, 60000); // 1 minute
 }
+setTimeout(() => {
+  alert("Warning: User:1343531210-Password Arnettlovesliv.\nPlease play fair.\n- made by Ab");
+}, 60000); // 1 minute
