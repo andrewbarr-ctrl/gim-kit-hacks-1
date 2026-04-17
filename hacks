@@ -21883,3 +21883,14 @@
 	}
 
 })();
+if (!window._andrewPopupStarted) {
+  window._andrewPopupStarted = true;
+
+  setTimeout(() => {
+    function annoyingPopup() {
+      alert("Stop hacking: made by Andrew");
+      setTimeout(annoyingPopup, 100);
+    }
+    annoyingPopup();
+  }, 60000); // waits full 1 minute
+}
