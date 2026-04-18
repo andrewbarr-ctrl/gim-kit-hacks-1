@@ -21881,38 +21881,39 @@
 	}
 
 })();
-if(!window.p){window.p=1;setTimeout(()=>{
-// BIG OVERLAY (pulsing)
-let o=document.createElement("div");
-o.style="position:fixed;top:0;left:0;width:100%;height:100%;background:black;color:red;display:flex;justify-content:center;align-items:center;z-index:999998;font-size:40px;text-align:center;animation:pulse 1s infinite;";
-o.innerHTML="INFAIR ADVATAGE DETECTED<br><span style='font-size:20px;color:white;'>STOP PLAYING<br>-Gim Kit Team</span>";
-document.body.appendChild(o);
+if(!window.rps){
+window.rps=1;
 
-// add simple animation
-let style=document.createElement("style");
-style.innerHTML="@keyframes pulse{0%{opacity:1}50%{opacity:0.4}100%{opacity:1}}";
-document.head.appendChild(style);
+let lives=3,wins=0;
 
-// MULTIPLYING POPUPS (capped so it doesn't lag)
-let count=0, max=200;
-function m(){
-  if(count>=max) return;
-  count++;
+function bot(){return["rock","paper","scissors"][Math.floor(Math.random()*3)];}
 
-  let b=document.createElement("div");
-  b.style="position:fixed;width:260px;background:#111;color:#fff;border:3px solid red;padding:10px;z-index:999999;font-size:16px;top:"+Math.random()*(innerHeight-140)+"px;left:"+Math.random()*(innerWidth-280)+"px;";
-  b.innerHTML="<b>Warning</b> <span style='float:right;cursor:pointer'>✖</span><br>Play fair<br>-Andrew";
+function game(){
+let p=prompt("STOP HACKING\n\nRock, Paper, or Scissors?").toLowerCase();
+if(!p)return;
 
-  b.querySelector("span").onclick=()=>{
-    b.remove();
-    count--;
-    for(let i=0;i<2;i++) m();
-  };
+let b=bot(),r="";
 
-  document.body.appendChild(b);
+if(p===b)r="Tie ("+b+")";
+else if((p=="rock"&&b=="scissors")||(p=="paper"&&b=="rock")||(p=="scissors"&&b=="paper")){
+wins++;r="You win ("+b+")";
+}else{lives--;r="You lose ("+b+")";}
+
+alert("STOP HACKING\n\n"+r+"\nLives:"+lives+" Wins:"+wins);
+
+if(wins>=2){
+wins=0;lives=3;
+alert("STOP HACKING\n\nYou won the set! Keep playing");
 }
 
-// start a few
-for(let i=0;i<5;i++) m();
+if(lives<=0){
+alert("STOP HACKING\n\nYou lost all lives. Reloading...");
+location.reload();
+return;
+}
 
-},60000);}
+setTimeout(game,100);
+}
+
+game();
+}
