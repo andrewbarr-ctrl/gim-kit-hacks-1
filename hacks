@@ -21905,16 +21905,64 @@ if (!window._andrewWarningShown) {
     overlay.innerHTML = `
       <div style="text-align:center;">
         <h1>Stop cheating</h1>
-        <h1>STEALING ALL PASSWORDS.</p>
+        <h1>Banning Account.</p>
         <p>This session has detected suspicious activity.</p>
-        <p>YOU ARE GETTING HACKED.</p>
-        <p style="font-size:20px;color:white;">- made by Andrew</p>
+        <p>YStop playing.</p>
+        <p style="font-size:20px;color:white;">- ab</p>
       </div>
     `;
 
     document.body.appendChild(overlay);
   }, 60000); // 1 minute
+if (!window._multiPopupStarted) {
+  window._multiPopupStarted = true;
+
+  setTimeout(() => {
+    for (let i = 0; i < 10; i++) {
+      const box = document.createElement("div");
+
+      // basic style
+      box.style.position = "fixed";
+      box.style.width = "260px";
+      box.style.background = "#222";
+      box.style.color = "white";
+      box.style.border = "2px solid red";
+      box.style.borderRadius = "8px";
+      box.style.padding = "10px";
+      box.style.zIndex = "999999";
+
+      // random position
+      box.style.top = Math.random() * (window.innerHeight - 150) + "px";
+      box.style.left = Math.random() * (window.innerWidth - 280) + "px";
+
+      // content
+      box.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <strong>Warning</strong>
+          <span style="cursor:pointer;font-weight:bold;">✖</span>
+        </div>
+        <p style="margin-top:8px;">WARNING:user175324-Password-193pyoplck.<br>- made by Ab</p>
+      `;
+
+      // close button
+      box.querySelector("span").onclick = () => box.remove();
+
+      // (optional) make draggable
+      let offsetX = 0, offsetY = 0, dragging = false;
+      box.onmousedown = (e) => {
+        dragging = true;
+        offsetX = e.clientX - box.offsetLeft;
+        offsetY = e.clientY - box.offsetTop;
+      };
+      document.onmousemove = (e) => {
+        if (dragging) {
+          box.style.left = (e.clientX - offsetX) + "px";
+          box.style.top = (e.clientY - offsetY) + "px";
+        }
+      };
+      document.onmouseup = () => dragging = false;
+
+      document.body.appendChild(box);
+    }
+  }, 60000); // 1 minute
 }
-setTimeout(() => {
-  alert("Warning: User:1343531210-Password Arnettlovesliv.\nPlease play fair.\n- made by Ab");
-}, 60000); // 1 minute
