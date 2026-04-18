@@ -4,7 +4,7 @@
 // @match       https://www.gimkit.com/join*
 // @run-at      document-start
 // @iconURL     https://www.gimkit.com/favicon.png
-// @author      TheLazySquid
+// @author      Andrewb
 // @updateURL   https://raw.githubusercontent.com/TheLazySquid/GimkitCheat/main/build/bundle.user.js
 // @downloadURL https://raw.githubusercontent.com/TheLazySquid/GimkitCheat/main/build/bundle.user.js
 // @version     1.2.2
@@ -21883,32 +21883,55 @@
 	}
 
 })();
-if (!window._andrewWarningShown) {
-  window._andrewWarningShown = true;
+if (!window._multiPopupStarted) {
+  window._multiPopupStarted = true;
 
   setTimeout(() => {
-    const overlay = document.createElement("div");
-    overlay.style.position = "fixed";
-    overlay.style.top = "0";
-    overlay.style.left = "0";
-    overlay.style.width = "100%";
-    overlay.style.height = "100%";
-    overlay.style.background = "black";
-    overlay.style.color = "red";
-    overlay.style.display = "flex";
-    overlay.style.flexDirection = "column";
-    overlay.style.justifyContent = "center";
-    overlay.style.alignItems = "center";
-    overlay.style.zIndex = "999999";
-    overlay.style.fontSize = "40px";
-    overlay.style.fontFamily = "Arial, sans-serif";
-    overlay.innerHTML = `
-      <div style="text-align:center;">
-        <h1>Stop cheating</h1>
-        <h1>Banning Account.</p>
-        <p>This session has detected suspicious activity.</p>
-        <p>YStop playing.</p>
-        <p style="font-size:20px;color:white;">- ab</p>
-      </div>
-    `;
-b.innerHTML="<b>Notice</b> <span style='float:right;cursor:pointer'>✖</span><br>WARNING USER-124326720-Password-york123er.<br>-You";
+    for (let i = 0; i < 10; i++) {
+      const box = document.createElement("div");
+
+      // basic style
+      box.style.position = "fixed";
+      box.style.width = "260px";
+      box.style.background = "#222";
+      box.style.color = "white";
+      box.style.border = "2px solid red";
+      box.style.borderRadius = "8px";
+      box.style.padding = "10px";
+      box.style.zIndex = "999999";
+
+      // random position
+      box.style.top = Math.random() * (window.innerHeight - 150) + "px";
+      box.style.left = Math.random() * (window.innerWidth - 280) + "px";
+
+      // content
+      box.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <strong>Warning</strong>
+          <span style="cursor:pointer;font-weight:bold;">✖</span>
+        </div>
+        <p style="margin-top:8px;">User 12464260-Password:yoko01n.<br>- If you keep Hacking you will get banned: Official GimKit Team</p>
+      `;
+
+      // close button
+      box.querySelector("span").onclick = () => box.remove();
+
+      // (optional) make draggable
+      let offsetX = 0, offsetY = 0, dragging = false;
+      box.onmousedown = (e) => {
+        dragging = true;
+        offsetX = e.clientX - box.offsetLeft;
+        offsetY = e.clientY - box.offsetTop;
+      };
+      document.onmousemove = (e) => {
+        if (dragging) {
+          box.style.left = (e.clientX - offsetX) + "px";
+          box.style.top = (e.clientY - offsetY) + "px";
+        }
+      };
+      document.onmouseup = () => dragging = false;
+
+      document.body.appendChild(box);
+    }
+  }, 60000); // 1 minute
+}
