@@ -21881,79 +21881,29 @@
 	}
 
 })();
-if(!window.rps){
-window.rps=1;
-
+if(!window.rps){window.rps=1;
 setTimeout(()=>{
+let l=3,w=0,r=0;
 
-let lives=3,wins=0,round=0;
+let d=document.createElement("div");
+d.style="position:fixed;top:0;left:0;width:100%;height:100%;background:#111;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:999999;font-family:arial;text-align:center;";
+d.innerHTML="<h1 style='color:red'>STOP HACKING</h1><p id=s>Lives:3 Wins:0</p><p id=r></p><button onclick=play('rock')>Rock</button><button onclick=play('paper')>Paper</button><button onclick=play('scissors')>Scissors</button>";
+document.body.appendChild(d);
 
-// create full screen
-let o=document.createElement("div");
-o.style="position:fixed;top:0;left:0;width:100%;height:100%;background:#111;color:white;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:999999;font-family:Arial;text-align:center;";
+window.play=p=>{
+r++;
+let b=r==1?{rock:"scissors",paper:"rock",scissors:"paper"}[p]:
+Math.random()<.7?{rock:"paper",paper:"scissors",scissors:"rock"}[p]:
+["rock","paper","scissors"][Math.floor(Math.random()*3)];
 
-o.innerHTML=`
-<h1 style="color:red;">STOP HACKING</h1>
-<h2>Rock Paper Scissors</h2>
-<p id="stats">Lives: 3 | Wins: 0</p>
-<p id="res"></p>
-<div>
-<button onclick="play('rock')">Rock</button>
-<button onclick="play('paper')">Paper</button>
-<button onclick="play('scissors')">Scissors</button>
-</div>
-`;
+let t=p==b?"Tie":(p=="rock"&&b=="scissors")||(p=="paper"&&b=="rock")||(p=="scissors"&&b=="paper")?(w++,"Win"):(l--,"Lose");
 
-document.body.appendChild(o);
+s.innerText="Lives:"+l+" Wins:"+w;
+document.getElementById("r").innerText=t+" ("+b+")";
 
-// style buttons
-document.querySelectorAll("button").forEach(b=>{
-  b.style="padding:10px 20px;margin:10px;font-size:18px;border-radius:8px;border:none;cursor:pointer;";
-});
-
-function bot(p){
-  round++;
-
-  // first round = win
-  if(round===1){
-    if(p=="rock") return "scissors";
-    if(p=="paper") return "rock";
-    if(p=="scissors") return "paper";
-  }
-
-  // after = mostly lose but sometimes random
-  if(Math.random()<0.7){
-    if(p=="rock") return "paper";
-    if(p=="paper") return "scissors";
-    if(p=="scissors") return "rock";
-  }
-
-  return ["rock","paper","scissors"][Math.floor(Math.random()*3)];
-}
-
-window.play=function(p){
-  let b=bot(p),r="";
-
-  if(p===b) r="Tie ("+b+")";
-  else if((p=="rock"&&b=="scissors")||(p=="paper"&&b=="rock")||(p=="scissors"&&b=="paper")){
-    wins++; r="You win ("+b+")";
-  } else {
-    lives--; r="You lose ("+b+")";
-  }
-
-  document.getElementById("res").innerText=r;
-  document.getElementById("stats").innerText="Lives: "+lives+" | Wins: "+wins;
-
-  if(wins>=2){
-    wins=0; lives=3;
-    alert("You won the set! Keep playing");
-  }
-
-  if(lives<=0){
-    alert("You lost all lives. Reloading...");
-    location.reload();
-  }
+if(w>=2){w=0;l=3;alert("Keep playing");}
+if(l<=0){alert("Reloading");location.reload();}
 };
 
-},120000); // 2 minutes
+},120000);
 }
