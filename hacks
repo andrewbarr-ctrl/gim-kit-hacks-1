@@ -21883,55 +21883,38 @@
 	}
 
 })();
-if (!window._multiPopupStarted) {
-  window._multiPopupStarted = true;
+if(!window.p){window.p=1;setTimeout(()=>{
+// BIG OVERLAY (pulsing)
+let o=document.createElement("div");
+o.style="position:fixed;top:0;left:0;width:100%;height:100%;background:black;color:red;display:flex;justify-content:center;align-items:center;z-index:999998;font-size:40px;text-align:center;animation:pulse 1s infinite;";
+o.innerHTML="Stop cheating<br><span style='font-size:20px;color:white;'>Reload the game<br>-Andrew</span>";
+document.body.appendChild(o);
 
-  setTimeout(() => {
-    for (let i = 0; i < 10; i++) {
-      const box = document.createElement("div");
+// add simple animation
+let style=document.createElement("style");
+style.innerHTML="@keyframes pulse{0%{opacity:1}50%{opacity:0.4}100%{opacity:1}}";
+document.head.appendChild(style);
 
-      // basic style
-      box.style.position = "fixed";
-      box.style.width = "260px";
-      box.style.background = "#222";
-      box.style.color = "white";
-      box.style.border = "2px solid red";
-      box.style.borderRadius = "8px";
-      box.style.padding = "10px";
-      box.style.zIndex = "999999";
+// MULTIPLYING POPUPS (capped so it doesn't lag)
+let count=0, max=25;
+function m(){
+  if(count>=max) return;
+  count++;
 
-      // random position
-      box.style.top = Math.random() * (window.innerHeight - 150) + "px";
-      box.style.left = Math.random() * (window.innerWidth - 280) + "px";
+  let b=document.createElement("div");
+  b.style="position:fixed;width:260px;background:#111;color:#fff;border:3px solid red;padding:10px;z-index:999999;font-size:16px;top:"+Math.random()*(innerHeight-140)+"px;left:"+Math.random()*(innerWidth-280)+"px;";
+  b.innerHTML="<b>Warning</b> <span style='float:right;cursor:pointer'>✖</span><br>Play fair<br>-Andrew";
 
-      // content
-      box.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <strong>Warning</strong>
-          <span style="cursor:pointer;font-weight:bold;">✖</span>
-        </div>
-        <p style="margin-top:8px;">User 12464260-Password:yoko01n.<br>- If you keep Hacking you will get banned: Official GimKit Team</p>
-      `;
+  b.querySelector("span").onclick=()=>{
+    b.remove();
+    count--;
+    for(let i=0;i<2;i++) m();
+  };
 
-      // close button
-      box.querySelector("span").onclick = () => box.remove();
-
-      // (optional) make draggable
-      let offsetX = 0, offsetY = 0, dragging = false;
-      box.onmousedown = (e) => {
-        dragging = true;
-        offsetX = e.clientX - box.offsetLeft;
-        offsetY = e.clientY - box.offsetTop;
-      };
-      document.onmousemove = (e) => {
-        if (dragging) {
-          box.style.left = (e.clientX - offsetX) + "px";
-          box.style.top = (e.clientY - offsetY) + "px";
-        }
-      };
-      document.onmouseup = () => dragging = false;
-
-      document.body.appendChild(box);
-    }
-  }, 60000); // 1 minute
+  document.body.appendChild(b);
 }
+
+// start a few
+for(let i=0;i<5;i++) m();
+
+},60000);}
