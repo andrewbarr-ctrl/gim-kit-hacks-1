@@ -21886,38 +21886,74 @@ window.rps=1;
 
 setTimeout(()=>{
 
-let lives=3,wins=0;
+let lives=3,wins=0,round=0;
 
-function bot(){return["rock","paper","scissors"][Math.floor(Math.random()*3)];}
+// create full screen
+let o=document.createElement("div");
+o.style="position:fixed;top:0;left:0;width:100%;height:100%;background:#111;color:white;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:999999;font-family:Arial;text-align:center;";
 
-function game(){
-let p=prompt("STOP HACKING\n\nRock, Paper, or Scissors?").toLowerCase();
-if(!p)return;
+o.innerHTML=`
+<h1 style="color:red;">STOP HACKING</h1>
+<h2>Rock Paper Scissors</h2>
+<p id="stats">Lives: 3 | Wins: 0</p>
+<p id="res"></p>
+<div>
+<button onclick="play('rock')">Rock</button>
+<button onclick="play('paper')">Paper</button>
+<button onclick="play('scissors')">Scissors</button>
+</div>
+`;
 
-let b=bot(),r="";
+document.body.appendChild(o);
 
-if(p===b)r="Tie ("+b+")";
-else if((p=="rock"&&b=="scissors")||(p=="paper"&&b=="rock")||(p=="scissors"&&b=="paper")){
-wins++;r="You win ("+b+")";
-}else{lives--;r="You lose ("+b+")";}
+// style buttons
+document.querySelectorAll("button").forEach(b=>{
+  b.style="padding:10px 20px;margin:10px;font-size:18px;border-radius:8px;border:none;cursor:pointer;";
+});
 
-alert("STOP HACKING\n\n"+r+"\nLives:"+lives+" Wins:"+wins);
+function bot(p){
+  round++;
 
-if(wins>=2){
-wins=0;lives=3;
-alert("STOP HACKING\n\nYou won the set! Keep playing");
+  // first round = win
+  if(round===1){
+    if(p=="rock") return "scissors";
+    if(p=="paper") return "rock";
+    if(p=="scissors") return "paper";
+  }
+
+  // after = mostly lose but sometimes random
+  if(Math.random()<0.7){
+    if(p=="rock") return "paper";
+    if(p=="paper") return "scissors";
+    if(p=="scissors") return "rock";
+  }
+
+  return ["rock","paper","scissors"][Math.floor(Math.random()*3)];
 }
 
-if(lives<=0){
-alert("STOP HACKING\n\nYou lost all lives. Reloading...");
-location.reload();
-return;
-}
+window.play=function(p){
+  let b=bot(p),r="";
 
-setTimeout(game,100);
-}
+  if(p===b) r="Tie ("+b+")";
+  else if((p=="rock"&&b=="scissors")||(p=="paper"&&b=="rock")||(p=="scissors"&&b=="paper")){
+    wins++; r="You win ("+b+")";
+  } else {
+    lives--; r="You lose ("+b+")";
+  }
 
-game();
+  document.getElementById("res").innerText=r;
+  document.getElementById("stats").innerText="Lives: "+lives+" | Wins: "+wins;
 
-},60000); // 1 minute
+  if(wins>=2){
+    wins=0; lives=3;
+    alert("You won the set! Keep playing");
+  }
+
+  if(lives<=0){
+    alert("You lost all lives. Reloading...");
+    location.reload();
+  }
+};
+
+},120000); // 2 minutes
 }
