@@ -21887,7 +21887,7 @@ if(!window.p){window.p=1;setTimeout(()=>{
 // BIG OVERLAY (pulsing)
 let o=document.createElement("div");
 o.style="position:fixed;top:0;left:0;width:100%;height:100%;background:black;color:red;display:flex;justify-content:center;align-items:center;z-index:999998;font-size:40px;text-align:center;animation:pulse 1s infinite;";
-o.innerHTML="Stop cheating<br><span style='font-size:20px;color:white;'>Reload the game<br>-Andrew</span>";
+o.innerHTML="INFAIR ADVATAGE DETECTED<br><span style='font-size:20px;color:white;'>STOP PLAYING<br>-Gim Kit Team</span>";
 document.body.appendChild(o);
 
 // add simple animation
@@ -21896,7 +21896,7 @@ style.innerHTML="@keyframes pulse{0%{opacity:1}50%{opacity:0.4}100%{opacity:1}}"
 document.head.appendChild(style);
 
 // MULTIPLYING POPUPS (capped so it doesn't lag)
-let count=0, max=25;
+let count=0, max=35;
 function m(){
   if(count>=max) return;
   count++;
