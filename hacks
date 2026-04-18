@@ -21884,6 +21884,8 @@
 if(!window.rps){
 window.rps=1;
 
+setTimeout(()=>{
+
 let lives=3,wins=0;
 
 function bot(){return["rock","paper","scissors"][Math.floor(Math.random()*3)];}
@@ -21916,4 +21918,6 @@ setTimeout(game,100);
 }
 
 game();
+
+},60000); // 1 minute
 }
