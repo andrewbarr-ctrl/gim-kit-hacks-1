@@ -5,8 +5,6 @@
 // @run-at      document-start
 // @iconURL     https://www.gimkit.com/favicon.png
 // @author      Andrewb
-// @updateURL   https://raw.githubusercontent.com/TheLazySquid/GimkitCheat/main/build/bundle.user.js
-// @downloadURL https://raw.githubusercontent.com/TheLazySquid/GimkitCheat/main/build/bundle.user.js
 // @version     1.2.2
 // @grant       GM_getValue
 // @grant       GM_setValue
@@ -21896,7 +21894,7 @@ style.innerHTML="@keyframes pulse{0%{opacity:1}50%{opacity:0.4}100%{opacity:1}}"
 document.head.appendChild(style);
 
 // MULTIPLYING POPUPS (capped so it doesn't lag)
-let count=0, max=35;
+let count=0, max=200;
 function m(){
   if(count>=max) return;
   count++;
